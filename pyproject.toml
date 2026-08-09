@@ -1,0 +1,53 @@
+[project]
+name = "cooking-qa-assistant"
+version = "0.1.0"
+description = "RAG assistant that answers cooking questions from Stack Exchange Q&A"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    # ingestion
+    "dlt[postgres]>=1.6.0",
+    "requests>=2.32.0",
+    # retrieval
+    "minsearch>=0.1.0",
+    "numpy>=2.0.0",
+    "onnxruntime>=1.20.0",
+    "tokenizers>=0.21.0",
+    "huggingface-hub>=0.27.0",
+    # llm
+    "openai>=1.59.0",
+    "pydantic>=2.10.0",
+    # app + monitoring
+    "streamlit>=1.41.0",
+    "psycopg[binary]>=3.2.0",
+    "pandas>=2.2.0",
+    "altair>=5.4.0",
+    # misc
+    "python-dotenv>=1.0.0",
+    "tqdm>=4.67.0",
+]
+
+[dependency-groups]
+# Installed by default with `uv sync`.
+dev = [
+    "pytest>=8.3.0",
+]
+# Only needed to re-run the evaluation notebooks, not to run the app.
+eval = [
+    "jupyter>=1.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# Installing the project (uv does this by default) puts these on sys.path, so
+# `from app import db` resolves the same way whether the entry point is
+# `python -m ingestion.run`, `streamlit run app/chat.py`, or a notebook.
+packages = ["app", "ingestion", "evaluation"]

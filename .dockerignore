@@ -1,0 +1,13 @@
+.git/
+.venv/
+.env
+__pycache__/
+*.py[cod]
+models/
+evaluation/results/
+docs/
+.ipynb_checkpoints/
+.DS_Store
+
+# README.md is deliberately NOT ignored: pyproject.toml declares it as the
+# project readme, so the project install fails without it.
